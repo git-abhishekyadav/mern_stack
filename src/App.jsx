@@ -4,7 +4,7 @@ import WelcomeH5 from './WelcomeH4';
 import {Button } from './Button';
 import { Hello, HelloWithoutJSX } from './Hello';
 import { Card, CardWithoutJSX } from './Card';
-import { Rule4 } from './Rule2';
+import { Rule4 } from './Rules';
 
 function Welcome() {
   return (
@@ -16,11 +16,11 @@ function App() {
 
   return (
     <div>
-      {/* <Hello />
+      <Hello />
       <HelloWithoutJSX />
       <Welcome />
       <WelcomeH5 />
-      <Button /> */}
+      <Button />
       <Card />
       <CardWithoutJSX />
       <Rule4 />
