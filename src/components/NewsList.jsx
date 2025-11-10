@@ -1,18 +1,11 @@
-const NewsList = (props) => { 
+import NewsListItem from "./NewsListItem";
 
-    return (
-        <>
-            {
-                props.news.map(item => (
-                    <div key={item.id}>
+const NewsList = (props) => {
+  const news = props.news.map((item) => (
+    <NewsListItem item={item} key={item.id} />
+  ));
 
-                        <h3>{item.title}</h3>
-                        <p>{item.feed}</p> 
-                    </div>
-                ))
-            }
-        </>
-    )
-}
+  return <>{news}</>;
+};
 
-export default NewsList
+export default NewsList;

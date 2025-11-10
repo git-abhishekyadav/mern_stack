@@ -1,17 +1,19 @@
 import Navigation from "./Nav";
 import { useState } from "react";
 
-const Header = () => {
-    const [keyword, setKeywords] = useState('');
+const Header = (props) => {
+    // const [active, setActive] = useState('active');
+    // const [keyword, setKeywords] = useState('');
 
-    const handleChange = (ev) => {
-        setKeywords(ev.target.value);
-    }
+    // const handleChange = (ev) => {
+    //     let value = ev.target.value === '' ? 'active': 'not-active';
+    //     setActive(value);
+    // }
 
     return (
         <header>
             <div className="logo" onClick={() =>console.log('I was clicked')}>AWESOME NEWS</div>
-            <input type="text" onChange={handleChange} />
+            <input type="text" onChange={props.getKeywords} />
             <Navigation />
         </header>
     )
