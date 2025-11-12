@@ -1,26 +1,14 @@
-import { useState } from "react";
-import Header from "./components/header/Header";
-import { newsData } from "./utils/data";
-import NewsList from "./components/NewsList";
+import Users from './components/Users'
+import { MyProvider } from './context';
 
 const App = () => {
-  let [news, setNews] = useState(newsData);
 
-  const getKeywords = (ev) => {
-    let keywords = ev.target.value;
-    let filtered = newsData.filter((item) => item.title.includes(keywords));
 
-    setNews(filtered);
-  };
-
-  return (
-    <>
-      <Header getKeywords={getKeywords} />
-      <div className="container">
-        <NewsList news={news} />
-      </div>
-    </>
-  );
-};
+    return(
+        <MyProvider>
+            <Users/>
+        </MyProvider>
+    )
+}
 
 export default App;
