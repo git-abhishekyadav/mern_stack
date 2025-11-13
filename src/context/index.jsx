@@ -1,36 +1,77 @@
 import { createContext, useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
 
 const MyContext = createContext();
 
 const MyProvider = (props) => {
-    const [active,setActive] = useState(true);
-    const [users,setUsers] = useState([
-        {id:1,name:'Francis'},
-        {id:2,name:'Steve'},
-        {id:3,name:'Miles'}
-    ]);
+    const [stage,setStage] = useState(1);
+    const [players,setPlayers] = useState([]);
+    const [result,setResult] = useState('')
 
-    const addUser = (name) =>{
-        setUsers(prevState=>(
-            [
-                ...prevState,
-                {id:4,name:name}
-            ]
-        ))
+    const addPlayerHandler = (name) => {
+        console.log(players)
+        setPlayers(prevState=>([
+            ...prevState,
+            name
+        ]))
     }
 
 
+    const removePlayerHandler = (idx) => {
+        let newArray = [...players];
+        newArray.splice(idx,1)
+        setPlayers(newArray);
+    }
+
+    const nextHandler = () => {
+        if(players.length < 2){
+            toast.error('You need more than one player',{
+                position:'top-left',
+                autoClose:2000
+            })
+        } else {
+            // next stage
+            setStage(2);
+            setTimeout(()=>{
+                generateLoser();
+            },2000)
+        }
+    }
+
+    const generateLoser = () => {
+        let result = players[Math.floor(Math.random()*players.length)];
+        setResult(result)
+    }
+
+    const resetGameHandler = () => {
+        setStage(1);
+        setPlayers([]);
+        setResult('')
+    }
+
     return(
-        <MyContext.Provider value={{
-            users:users,
-            addUser:addUser,
-            setUsers:setUsers,
-            activeState:active,
-            setActive: () => setActive(!active)
-        }}>
-            {props.children}
-        </MyContext.Provider>
+        <>
+            <MyContext.Provider value={{
+                // STATE
+                stage:stage,
+                players:players,
+                result:result,
+                //METHODS
+                addPlayer:addPlayerHandler,
+                removePlayer:removePlayerHandler,
+                next:nextHandler,
+                generateNewLoser:generateLoser,
+                resetGame:resetGameHandler
+            }}>
+                {props.children}
+            </MyContext.Provider>
+            <ToastContainer/>
+        </>
     )
 }
 
-export {MyContext,MyProvider}
+export {
+    MyContext,
+    MyProvider
+}
+
